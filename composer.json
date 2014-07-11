@@ -1,7 +1,7 @@
 {
     "name": "phergie/phergie-irc-plugin-react-twitter",
     "description": "Phergie plugin for displaying data from tweets",
-    "keywords": [ "phergie", "irc", "bot", "plugin" ],
+    "keywords": [ "phergie", "irc", "bot", "plugin", "twitter" ],
     "license": "BSD-2-Clause",
     "support": {
         "email": "team@phergie.org",
@@ -12,15 +12,14 @@
     "minimum-stability": "dev",
     "require": {
         "phergie/phergie-irc-bot-react": "dev-master",
-        "phergie/phergie-irc-plugin-react-command": "dev-master"
-
+        "guzzlehttp/guzzle": "4.*",
+        "guzzlehttp/oauth-subscriber": "0.1.*",
+        "wyrihaximus/phergie-url": "dev-master",
+        "wyrihaximus/react-guzzle": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*",
         "phake/phake": "2.0.0-beta2"
-    },
-    "suggest": {
-        "phergie/phergie-irc-plugin-react-commandhelp": "provides interactive help for commands"
     },
     "autoload": {
         "psr-4": {
