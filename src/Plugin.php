@@ -12,6 +12,7 @@
 namespace Phergie\Irc\Plugin\React\Twitter;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Message\Response;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use Phergie\Irc\Bot\React\AbstractPlugin;
 use Phergie\Irc\Bot\React\EventQueueInterface as Queue;
@@ -50,23 +51,34 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface
     protected $loop;
 
     /**
+     * Formatter used to format tweets prior to their syndication
+     *
+     * @var \Phergie\Irc\Plugin\React\Twitter\FormatterInterface
+     */
+    protected $formatter;
+
+    /**
      * Accepts plugin configuration.
      *
      * Supported keys:
      *
-     * consumer_key - OAuth consumer key
+     * consumer_key - required string containing OAuth consumer key
      *
-     * consumer_secret - OAuth consumer secret
+     * consumer_secret - required string containing OAuth consumer secret
      *
-     * token - OAuth token
+     * token - required string containing OAuth token
      *
-     * token_secret - OAuth token secret
+     * token_secret - required string containing OAuth token secret
+     *
+     * formatter - optional object implementing \Phergie\Irc\Plugin\React\Twitter\FormatterInterface
+     *             used to format tweets prior to their syndication
      *
      * @param array $config
      */
     public function __construct(array $config = array())
     {
         $this->oauth = $this->getOauth($config);
+        $this->formatter = $this->getFormatter($config);
     }
 
     /**
@@ -132,6 +144,26 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface
     }
 
     /**
+     * Extracts a formatter from configuration or returns an instance of a
+     * default implementation.
+     *
+     * @return \Phergie\Irc\Plugin\React\Twitter\FormatterInterface
+     * @throws \DomainException if formatter does not implement FormatterInterface
+     */
+    protected function getFormatter(array $config)
+    {
+        if (isset($config['formatter'])) {
+            if (!$config['formatter'] instanceof FormatterInterface) {
+                throw new \DomainException(
+                    '"formatter" must implement ' . __NAMESPACE__ . '\\FormatterInterface'
+                );
+            }
+            return $config['formatter'];
+        }
+        return new DefaultFormatter;
+    }
+
+    /**
      * Indicates that that plugin monitors messages for Twitter URLs.
      *
      * @return array
@@ -159,27 +191,43 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface
         }
         $id = $match['id'];
 
+        $self = $this;
         $this->getClient()
             ->get('statuses/show/' . $id, array('auth' => 'oauth'))
             ->then(
-                array($this, 'handleSuccess'),
-                array($this, 'handleError')
+                function(Response $response) use ($self, $event, $queue) {
+                    $self->handleSuccess($response, $event, $queue);
+                },
+                function(\Exception $error) use ($self, $event, $queue) {
+                    $self->handleError($error, $event, $queue);
+                }
             );
     }
 
     /**
      * Handles a successful fetch of tweet data.
+     *
+     * @param \GuzzleHttp\Message\Response $response
+     * @param \Phergie\Irc\Event\UserEventInterface $event
+     * @param \Phergie\Irc\Bot\React\EventQueueInterface $queue
      */
-    public function handleSuccess()
+    public function handleSuccess(Response $response, Event $event, Queue $queue)
     {
-        var_dump(func_get_args());
+        $json = $response->json();
+        $formatted = $this->formatter->format($json);
+        $queue->ircPrivmsg($event->getSource(), $formatted);
     }
 
     /**
      * Handles a failed fetch of tweet data.
+     *
+     * @param \Exception $error
+     * @param \Phergie\Irc\Event\UserEventInterface $event
+     * @param \Phergie\Irc\Bot\React\EventQueueInterface $queue
      */
-    public function handleError()
+    public function handleError(\Exception $error, Event $event, Queue $queue)
     {
-        var_dump(func_get_args());
+        $message = 'Error fetching tweet: ' . get_class($error) . ': ' . $e->getMessage();
+        $queue->ircPrivmsg($event->getSource(), $message);
     }
 }

@@ -15,7 +15,8 @@
         "guzzlehttp/guzzle": "4.*",
         "guzzlehttp/oauth-subscriber": "0.1.*",
         "wyrihaximus/phergie-url": "dev-master",
-        "wyrihaximus/react-guzzle": "dev-master"
+        "wyrihaximus/react-guzzle": "dev-master",
+        "nesbot/Carbon": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*",
