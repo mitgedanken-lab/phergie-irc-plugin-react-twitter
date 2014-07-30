@@ -204,16 +204,16 @@
         },
         {
             "name": "guzzlehttp/streams",
-            "version": "1.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/streams.git",
-                "reference": "cf0c8c33ca95cc147efba4c714f630ee44767180"
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/streams/zipball/cf0c8c33ca95cc147efba4c714f630ee44767180",
-                "reference": "cf0c8c33ca95cc147efba4c714f630ee44767180",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/3b761a328e5ed6ed519e960aded95d7acbe77894",
+                "reference": "3b761a328e5ed6ed519e960aded95d7acbe77894",
                 "shasum": ""
             },
             "require": {
@@ -225,7 +225,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.4.x-dev"
                 }
             },
             "autoload": {
@@ -253,7 +253,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2014-04-03 04:48:24"
+            "time": "2014-07-19 18:43:42"
         },
         {
             "name": "monolog/monolog",
@@ -319,23 +319,23 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.9.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "b94de7192b01d0e80794eae984dcc773220ab0dc"
+                "reference": "9b42a1aec56011c2ac4d75c0ddad0794762344fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b94de7192b01d0e80794eae984dcc773220ab0dc",
-                "reference": "b94de7192b01d0e80794eae984dcc773220ab0dc",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/9b42a1aec56011c2ac4d75c0ddad0794762344fc",
+                "reference": "9b42a1aec56011c2ac4d75c0ddad0794762344fc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "autoload": {
@@ -361,7 +361,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2014-05-13 02:29:30"
+            "time": "2014-07-18 03:44:47"
         },
         {
             "name": "nojimage/twitter-text-php",
@@ -1158,12 +1158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/WyriHaximus/PhergieUrl.git",
-                "reference": "fb6adc9bbda13bc516431d375466490afe1f8e56"
+                "reference": "8dd903b4196b8b5f257afd131398af927d005519"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/PhergieUrl/zipball/fb6adc9bbda13bc516431d375466490afe1f8e56",
-                "reference": "fb6adc9bbda13bc516431d375466490afe1f8e56",
+                "url": "https://api.github.com/repos/WyriHaximus/PhergieUrl/zipball/8dd903b4196b8b5f257afd131398af927d005519",
+                "reference": "8dd903b4196b8b5f257afd131398af927d005519",
                 "shasum": ""
             },
             "require": {
@@ -1192,7 +1192,7 @@
                 "plugin",
                 "react"
             ],
-            "time": "2014-07-07 17:02:25"
+            "time": "2014-07-27 19:28:38"
         },
         {
             "name": "wyrihaximus/react-guzzle",
@@ -1200,12 +1200,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/WyriHaximus/ReactGuzzle.git",
-                "reference": "f03be27faee021ab39947fa677ef8b35e4c5ac66"
+                "reference": "74020994df8c2b1806126bdcbcf6c2ec893c617e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WyriHaximus/ReactGuzzle/zipball/f03be27faee021ab39947fa677ef8b35e4c5ac66",
-                "reference": "f03be27faee021ab39947fa677ef8b35e4c5ac66",
+                "url": "https://api.github.com/repos/WyriHaximus/ReactGuzzle/zipball/74020994df8c2b1806126bdcbcf6c2ec893c617e",
+                "reference": "74020994df8c2b1806126bdcbcf6c2ec893c617e",
                 "shasum": ""
             },
             "require": {
@@ -1216,6 +1216,9 @@
                 "mockery/mockery": "~0.9",
                 "phpunit/phpunit": "~4.0",
                 "satooshi/php-coveralls": "~0.6"
+            },
+            "suggest": {
+                "guzzlehttp/oauth-subscriber": "0.1.* needed for oauth example"
             },
             "type": "library",
             "autoload": {
@@ -1231,12 +1234,11 @@
                 {
                     "name": "Cees-Jan Kiewiet",
                     "email": "ceesjank@gmail.com",
-                    "homepage": "http://wyrihaximus.net/",
-                    "role": "Maintainer"
+                    "homepage": "http://wyrihaximus.net/"
                 }
             ],
             "description": "Asyncronous Guzzle adapter powered by react/http-client",
-            "time": "2014-07-11 21:07:47"
+            "time": "2014-07-29 05:54:48"
         }
     ],
     "packages-dev": [
@@ -1338,7 +1340,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.io/",
+                    "homepage": "http://ocramius.github.com/",
                     "role": "Developer"
                 }
             ],
@@ -1415,12 +1417,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "09a53c29da426623e9a8a416dda1c7ed3b2d3d72"
+                "reference": "d1c08e786a36190c015b1c6756e68e1532ce0d57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/09a53c29da426623e9a8a416dda1c7ed3b2d3d72",
-                "reference": "09a53c29da426623e9a8a416dda1c7ed3b2d3d72",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/d1c08e786a36190c015b1c6756e68e1532ce0d57",
+                "reference": "d1c08e786a36190c015b1c6756e68e1532ce0d57",
                 "shasum": ""
             },
             "require": {
@@ -1472,7 +1474,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-06-30 09:08:59"
+            "time": "2014-07-29 19:47:53"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1663,12 +1665,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2acad45c14e1366507853074469a262608fcfae8"
+                "reference": "e4c97eee7bf32da7b4706bd81b9299439bbf3a68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2acad45c14e1366507853074469a262608fcfae8",
-                "reference": "2acad45c14e1366507853074469a262608fcfae8",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e4c97eee7bf32da7b4706bd81b9299439bbf3a68",
+                "reference": "e4c97eee7bf32da7b4706bd81b9299439bbf3a68",
                 "shasum": ""
             },
             "require": {
@@ -1729,7 +1731,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-07-07 11:36:51"
+            "time": "2014-07-29 13:13:35"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2064,12 +2066,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "4168f7b8e211cdc2d778ab78f35666580a6d7437"
+                "reference": "07ff901ce8b081cf227091b4919d347fa999b2a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/4168f7b8e211cdc2d778ab78f35666580a6d7437",
-                "reference": "4168f7b8e211cdc2d778ab78f35666580a6d7437",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/07ff901ce8b081cf227091b4919d347fa999b2a0",
+                "reference": "07ff901ce8b081cf227091b4919d347fa999b2a0",
                 "shasum": ""
             },
             "require": {
@@ -2104,22 +2106,16 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-08 12:21:41"
+            "time": "2014-07-09 09:06:26"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "phergie/phergie-irc-bot-react": 20,
         "wyrihaximus/phergie-url": 20,
         "wyrihaximus/react-guzzle": 20
     },
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "platform": [],
+    "platform-dev": []
 }
