@@ -11,9 +11,9 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "phergie/phergie-irc-bot-react": "dev-master",
-        "guzzlehttp/guzzle": "4.*",
-        "guzzlehttp/oauth-subscriber": "0.1.*",
+        "phergie/phergie-irc-bot-react": "~1",
+        "guzzlehttp/guzzle": "~4",
+        "guzzlehttp/oauth-subscriber": "~0.1",
         "wyrihaximus/phergie-url": "dev-master",
         "wyrihaximus/react-guzzle": "dev-master",
         "nesbot/Carbon": "1.*"
