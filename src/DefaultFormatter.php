@@ -11,7 +11,7 @@
 
 namespace Phergie\Irc\Plugin\React\Twitter;
 
-use Carbon;
+use Carbon\Carbon;
 
 /**
  * Default tweet formatter implementation.

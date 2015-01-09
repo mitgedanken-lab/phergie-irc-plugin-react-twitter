@@ -216,7 +216,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
         $this->logger->info('Sending HTTP request');
         $self = $this;
         $this->getClient()
-            ->get('statuses/show/' . $id, array('auth' => 'oauth'))
+            ->get('statuses/show/' . $id . '.json', array('auth' => 'oauth'))
             ->then(
                 function(Response $response) use ($self, $event, $queue) {
                     $self->handleSuccess($response, $event, $queue);
@@ -236,7 +236,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
      */
     public function handleSuccess(Response $response, Event $event, Queue $queue)
     {
-        $json = $response->json();
+        $json = $response->json(array('object' => true));
         $this->logger->debug('Received response', array('json' => $json));
         $formatted = $this->formatter->format($json);
         $queue->ircPrivmsg($event->getSource(), $formatted);
