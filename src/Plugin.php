@@ -252,7 +252,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
     public function handleError(\Exception $error, Event $event, Queue $queue)
     {
         $this->logger->debug('Received error', array('error' => $error));
-        $message = 'Error fetching tweet: ' . get_class($error) . ': ' . $e->getMessage();
+        $message = 'Error fetching tweet: ' . get_class($error) . ': ' . $error->getMessage();
         $queue->ircPrivmsg($event->getSource(), $message);
     }
 }
