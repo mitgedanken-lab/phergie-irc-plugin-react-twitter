@@ -18,6 +18,8 @@ use Phergie\Irc\Bot\React\AbstractPlugin;
 use Phergie\Irc\Bot\React\EventQueueInterface as Queue;
 use Phergie\Irc\Client\React\LoopAwareInterface;
 use Phergie\Irc\Event\UserEventInterface as Event;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 use React\EventLoop\LoopInterface;
 use WyriHaximus\React\Guzzle\HttpClientAdapter;
 
@@ -27,7 +29,7 @@ use WyriHaximus\React\Guzzle\HttpClientAdapter;
  * @category Phergie
  * @package Phergie\Irc\Plugin\React\Twitter
  */
-class Plugin extends AbstractPlugin implements LoopAwareInterface
+class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareInterface
 {
     /**
      * HTTP client used to interact with the Twitter API
@@ -58,6 +60,13 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface
     protected $formatter;
 
     /**
+     * Logger used to log plugin events
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Accepts plugin configuration.
      *
      * Supported keys:
@@ -79,6 +88,16 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface
     {
         $this->oauth = $this->getOauth($config);
         $this->formatter = $this->getFormatter($config);
+    }
+
+    /**
+     * Stores a logger for later use.
+     *
+     * @param \Psr\Log\LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
     /**
@@ -184,13 +203,17 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface
      */
     public function handleUrl($url, Event $event, Queue $queue)
     {
+        $this->logger->info('Received URL', array('url' => $url));
+
         $parsed = parse_url($url);
         $path = $parsed['path'];
         if (!preg_match('#/status/(?P<id>[0-9]+)$#', $path, $match)) {
+            $this->logger->debug('Skipping URL, did not match status pattern');
             return;
         }
         $id = $match['id'];
 
+        $this->logger->info('Sending HTTP request');
         $self = $this;
         $this->getClient()
             ->get('statuses/show/' . $id, array('auth' => 'oauth'))
@@ -214,6 +237,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface
     public function handleSuccess(Response $response, Event $event, Queue $queue)
     {
         $json = $response->json();
+        $this->logger->debug('Received response', array('json' => $json));
         $formatted = $this->formatter->format($json);
         $queue->ircPrivmsg($event->getSource(), $formatted);
     }
@@ -227,6 +251,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface
      */
     public function handleError(\Exception $error, Event $event, Queue $queue)
     {
+        $this->logger->debug('Received error', array('error' => $error));
         $message = 'Error fetching tweet: ' . get_class($error) . ': ' . $e->getMessage();
         $queue->ircPrivmsg($event->getSource(), $message);
     }
