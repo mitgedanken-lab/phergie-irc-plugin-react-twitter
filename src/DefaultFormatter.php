@@ -83,7 +83,7 @@ class DefaultFormatter implements FormatterInterface
             '%place%' => $tweet->place,
             '%retweet_count%' => $tweet->retweet_count,
             '%source%' => $tweet->source,
-            '%text%' => $tweet->text,
+            '%text%' => html_entity_decode($tweet->text),
             '%url%' => $url,
             '%user.created_at.formatted%' => $user_created_at->format($this->datePattern),
             '%user.created_at.relative%' => $user_created_at_relative,
