@@ -9,7 +9,6 @@
         "issues": "https://github.com/phergie/phergie-irc-plugin-react-twitter/issues",
         "source": "https://github.com/phergie/phergie-irc-plugin-react-twitter"
     },
-    "minimum-stability": "dev",
     "require": {
         "phergie/phergie-irc-bot-react": "~1",
         "guzzlehttp/guzzle": "~4",
