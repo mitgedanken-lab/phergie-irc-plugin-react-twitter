@@ -36,7 +36,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
      *
      * @var \GuzzleHttp\ClientInterface
      */
-    protected $client;
+    protected $httpClient;
 
     /**
      * HTTP client plugin used to authenticate using OAuth
@@ -50,7 +50,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
      *
      * @var \React\EventLoop\LoopInterface
      */
-    protected $loop;
+    protected $eventLoop;
 
     /**
      * Formatter used to format tweets prior to their syndication
@@ -108,7 +108,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
      */
     public function setLoop(LoopInterface $loop)
     {
-        $this->loop = $loop;
+        $this->eventLoop = $loop;
     }
 
     /**
@@ -120,16 +120,16 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
      *
      * @return \GuzzleHttp\ClientInterface
      */
-    protected function getClient()
+    protected function getHttpClient()
     {
-        if (!$this->client) {
-            $this->client = new Client(array(
+        if (!$this->httpClient) {
+            $this->httpClient = new Client(array(
                 'base_url' => 'https://api.twitter.com/1.1/',
-                'adapter' => new HttpClientAdapter($this->loop),
+                'adapter' => new HttpClientAdapter($this->eventLoop),
             ));
-            $this->client->getEmitter()->attach($this->oauth);
+            $this->httpClient->getEmitter()->attach($this->oauth);
         }
-        return $this->client;
+        return $this->httpClient;
     }
 
     /**
@@ -215,7 +215,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
 
         $this->logger->info('Sending HTTP request');
         $self = $this;
-        $this->getClient()
+        $this->getHttpClient()
             ->get('statuses/show/' . $id . '.json', array('auth' => 'oauth'))
             ->then(
                 function(Response $response) use ($self, $event, $queue) {
