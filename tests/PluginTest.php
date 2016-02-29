@@ -30,7 +30,13 @@ class PluginTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSubscribedEvents()
     {
-        $plugin = new Plugin;
+        $config = array(
+            'consumer_key' => 'KEY',
+            'consumer_secret' => 'SECRET',
+            'token' => 'TOKEN',
+            'token_secret' => 'TOKEN_SECRET',
+        );
+        $plugin = new Plugin($config);
         $this->assertInternalType('array', $plugin->getSubscribedEvents());
     }
 }
