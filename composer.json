@@ -10,11 +10,8 @@
         "source": "https://github.com/phergie/phergie-irc-plugin-react-twitter"
     },
     "require": {
-        "phergie/phergie-irc-bot-react": "~1",
-        "guzzlehttp/guzzle": "~4",
+        "phergie/phergie-irc-plugin-react-url": "~3",
         "guzzlehttp/oauth-subscriber": "~0.1",
-        "phergie/phergie-irc-plugin-react-url": "~1",
-        "wyrihaximus/react-guzzle": "~0.1",
         "nesbot/Carbon": "~1"
     },
     "require-dev": {
