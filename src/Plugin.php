@@ -21,7 +21,7 @@ use Phergie\Irc\Event\UserEventInterface as Event;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use React\EventLoop\LoopInterface;
-use WyriHaximus\React\Guzzle\HttpClientAdapter;
+use WyriHaximus\React\RingPHP\HttpClientAdapter;
 
 /**
  * Plugin class.
@@ -216,7 +216,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
         $this->logger->info('Sending HTTP request');
         $self = $this;
         $this->getHttpClient()
-            ->get('statuses/show/' . $id . '.json', array('auth' => 'oauth'))
+            ->get('statuses/show/' . $id . '.json', array('auth' => 'oauth', 'future' => true))
             ->then(
                 function(Response $response) use ($self, $event, $queue) {
                     $self->handleSuccess($response, $event, $queue);
