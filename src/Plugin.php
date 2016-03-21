@@ -238,7 +238,7 @@ class Plugin extends AbstractPlugin implements LoopAwareInterface, LoggerAwareIn
     {
         $json = $response->json(array('object' => true));
         $this->logger->debug('Received response', array('json' => $json));
-        $formatted = $this->formatter->format($json);
+        $formatted = $this->escapeParam($this->formatter->format($json));
         $queue->ircPrivmsg($event->getSource(), $formatted);
     }
 
