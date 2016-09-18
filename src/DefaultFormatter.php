@@ -80,7 +80,7 @@ class DefaultFormatter implements FormatterInterface
             '%in_reply_to_screen_name%' => $tweet->in_reply_to_screen_name,
             '%in_reply_to_status_id_str%' => $tweet->in_reply_to_status_id_str,
             '%in_reply_to_user_id_str%' => $tweet->in_reply_to_user_id_str,
-            '%place%' => $tweet->place,
+            '%place%' => $tweet->place->full_name,
             '%retweet_count%' => $tweet->retweet_count,
             '%source%' => $tweet->source,
             '%text%' => html_entity_decode($tweet->text),
