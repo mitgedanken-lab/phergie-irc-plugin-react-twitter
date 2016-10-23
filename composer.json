@@ -10,6 +10,7 @@
         "source": "https://github.com/phergie/phergie-irc-plugin-react-twitter"
     },
     "require": {
+        "php": ">= 5.6",
         "phergie/phergie-irc-plugin-react-url": "~3",
         "guzzlehttp/oauth-subscriber": "~0.1",
         "nesbot/Carbon": "~1"
